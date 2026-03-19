@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 import pandas as pd
 import uvicorn
 import os
+import io
 
 app = FastAPI()
 
@@ -20,8 +21,8 @@ async def process_scheduling(file: UploadFile = File(...)):
     from optimizer import develop_scheduling_model
 
     contents = await file.read()
-    sector_df = pd.read_excel(contents, sheet_name='Sectors')
-    crew_df = pd.read_excel(contents, sheet_name='Crew', header=1)
+    sector_df = pd.read_excel(io.BytesIO(contents), sheet_name='Sectors')
+    crew_df = pd.read_excel(io.BytesIO(contents), sheet_name='Crew', header=1)
     # Usage
     file_path = '/content/Masters and Sectors_Latest_Modified.xlsx'
     crew_quals, crew_roles, cleaned_crew = prepare_crew_data(crew_df)
