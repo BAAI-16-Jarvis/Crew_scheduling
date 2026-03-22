@@ -10,13 +10,13 @@ def precompute_faa_groups(sectors):
 
 
 
-def precompute_rest_violations(sectors):
+#def precompute_rest_violations(sectors):
     violations = []
 
     sorted_df = sectors.sort_values('DutyStartDT')
     idxs = sorted_df.index.tolist()
 
-    for i, j in zip(idxs[:-1], idxs[1:]):
+    #for i, j in zip(idxs[:-1], idxs[1:]):
         rest_gap = (
             sectors.loc[j, 'DutyStartDT'] -
             sectors.loc[i, 'DutyEndDT']
@@ -24,10 +24,10 @@ def precompute_rest_violations(sectors):
 
         prev_ftl = sectors.loc[i, 'FTL_hours']
 
-        if prev_ftl <= 8 and rest_gap < 8:
+        #if prev_ftl <= 8 and rest_gap < 8:
             violations.append((i, j))
-        elif prev_ftl > 8 and rest_gap < 16:
+        #elif prev_ftl > 8 and rest_gap < 16:
             violations.append((i, j))
 
-    return violations
+    #return violations
 
