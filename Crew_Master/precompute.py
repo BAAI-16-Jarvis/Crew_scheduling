@@ -102,3 +102,14 @@ print(sectors.head(10).to_string()) # Displaying 10 rows to show explosion effec
 # Verify the data type of the 'Crew' column
 print(f"\nData type of 'Crew' column: {sectors['Crew'].dtype}")
 print(f"Number of rows after explode: {len(sectors)}")
+
+#Create Cleaned Data to be used for Violation Report
+!pip install xlsxwriter
+
+output_file_path = 'cleaned_data.xlsx'
+
+with pd.ExcelWriter(output_file_path, engine='xlsxwriter') as writer:
+    cleaned_crew.to_excel(writer, sheet_name='Cleaned Crew', index=False)
+    sectors.to_excel(writer, sheet_name='Sectors Data', index=False)
+
+print(f"Cleaned data saved to {output_file_path}")
